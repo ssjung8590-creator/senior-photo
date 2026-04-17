@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          (request.auth.token.email == "ssjung8590@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function isValidPhoto(data) {
+      return data.url is string && data.url.size() < 2000 &&
+             data.category is string && data.category.size() < 50 &&
+             data.description is string && data.description.size() < 1000 &&
+             data.createdAt is timestamp &&
+             data.userId == request.auth.uid;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+    
+    match /users/{userId} {
+      allow read, write: if isOwner(userId) || isAdmin();
+
+      match /photos/{photoId} {
+        allow read: if isOwner(userId) || isAdmin();
+        allow create: if isOwner(userId) && isValidPhoto(request.resource.data);
+        allow update: if isOwner(userId) && isValidPhoto(request.resource.data);
+        allow delete: if isOwner(userId) || isAdmin();
+      }
+    }
+  }
+}

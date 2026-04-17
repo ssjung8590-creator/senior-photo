@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "Photo": {
+      "title": "Photo",
+      "description": "Metadata for an uploaded photo",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "URL of the photo"
+        },
+        "category": {
+          "type": "string",
+          "description": "Auto-assigned category (e.g., 가족, 음식, 풍경)"
+        },
+        "description": {
+          "type": "string",
+          "description": "AI-generated or user-provided description"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner"
+        }
+      },
+      "required": ["url", "category", "createdAt", "userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/photos/{photoId}": {
+      "schema": "Photo",
+      "description": "User's categorized photos"
+    }
+  }
+}
