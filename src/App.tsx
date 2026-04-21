@@ -18,7 +18,7 @@ import {
 } from './firebase';
 import { classifyImage } from './services/geminiService';
 import { Camera, Image as ImageIcon, LogOut, Plus, Trash2, Search, Heart, Map, Utensils, Users, Info } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { framer-motion, AnimatePresence } from 'framer-motion';
 
 // --- Error Boundary ---
 interface ErrorBoundaryProps {
