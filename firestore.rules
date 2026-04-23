@@ -19,9 +19,9 @@ service cloud.firestore {
     }
 
     function isValidPhoto(data) {
-      return data.url is string && data.url.size() < 2000 &&
+      return data.url is string && data.url.size() < 1500000 &&
              data.category is string && data.category.size() < 50 &&
-             data.description is string && data.description.size() < 1000 &&
+             data.description is string && data.description.size() < 3000 &&
              data.createdAt is timestamp &&
              data.userId == request.auth.uid;
     }
