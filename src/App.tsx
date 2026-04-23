@@ -16,9 +16,9 @@ import {
   OperationType,
   handleFirestoreError
 } from './firebase';
-import { classifyImage } from './services/geminiService';
+import { classifyImage } from './geminiService'/motion';
 import { Camera, Image as ImageIcon, LogOut, Plus, Trash2, Search, Heart, Map, Utensils, Users, Info } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framermotion'motion';
 
 // --- Error Boundary ---
 interface ErrorBoundaryProps {
